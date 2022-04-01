@@ -86,29 +86,23 @@ router.get("/newShip/secondaryBattery/", function(req, res){
 
 /**
  * tell Express.js that when it receives a PATCH request at the URL /updateShip, to do this code.
- * Use the Mongoose findOneAndUpdate function.
-Assume that the name of the ship to update is always included in the request.
-Assume that there will be at least one field to update included in the request.
-If no ship with the given name is found, return HTTP code 404.
-If no ship name is given in the request, return HTTP code 400.
-If there is an error while finding the ship to update, return HTTP code 500 and the error message.
-Upon a successful update, return the updated document.
  */
 router.patch("/updateShip/", function(req, res){
-  // look up documents in MongoDB by specified model of secondary battery.
+  // look up documents in MongoDB by specified name.
   Ship.findOneAndUpdate({name: req.body.name},req.body, { new: true }, function(error,doc){
-    // if there was an error.
+    // if no name field in request body.
     if(req.body.name==null){
       console.error("No ships name given in request",error);
       res.status(400).send(error);
     }
-    // if no ships with specified secondary battery was found.
+    // if no ships with specified name was found.
     else if(!doc){
       // send an error.
       console.error("No ship with the given name is found",error);
       res.status(404).send(error);
     // return updated document.
     }else{
+      // catch an error 
       if(error){
         console.error("Error finding the ship",error);
         res.status(500).send(error);
