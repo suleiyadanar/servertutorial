@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
+const config=require("./config");
+const token = config.MY_API_TOKEN;
+const key = config.SECRET_API_KEY;
 /**
  * URL to the MongoDB instance.
  */
-const MONGODB_URL = "mongodb+srv://sulei:%40Saga1iTune@cluster0.hud40.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-
+const MONGODB_URL = "mongodb+srv://"+token+":"+key+"@cluster0.hud40.mongodb.net/shipDatabase?retryWrites=true&w=majority";
 // Tell Mongoose to connect to the MongoDB instance using the provided configuration.
 mongoose.connect(MONGODB_URL);
 
